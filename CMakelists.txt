@@ -1,0 +1,37 @@
+cmake_minimum_required(VERSION 3.15)
+project(SnowFighter)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# --- SFML third-party root ---
+set(SFML_ROOT ${CMAKE_SOURCE_DIR}/thirdparty/SFML)
+
+# --- Executable (GUI app) ---
+add_executable(SnowFighter WIN32
+    src/main.cpp
+ "src/Character.h" "src/Character.cpp" "src/Snowball.h" "src/Snowball.cpp" "src/Enemy.h" "src/Enemy.cpp" "src/Fireball.h" "src/Fireball.cpp" "src/RangedEnemy.h" "src/RangedEnemy.cpp"
+"src/HealthPickup.h" "src/HealthPickup.cpp" "src/WorldObject.h" "src/WorldObject.cpp")
+
+# --- Include utak ---
+target_include_directories(SnowFighter PRIVATE
+    ${SFML_ROOT}/include
+)
+
+# --- Lib utak ---
+target_link_directories(SnowFighter PRIVATE
+    ${SFML_ROOT}/lib
+)
+
+# --- Linkelés (Release / RelWithDebInfo) ---
+if (MSVC)
+    target_link_libraries(SnowFighter
+        sfml-main          # <<< EZ HIÁNYZOTT
+        sfml-graphics
+        sfml-window
+        sfml-system
+        sfml-audio
+    )
+endif()
+
+
